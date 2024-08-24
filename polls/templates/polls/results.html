@@ -8,7 +8,7 @@
     <title>{{ question.question_text }}</title>
 </head>
 <body>
-    <h1><i class="bi bi-patch-question"></i> {{ question.question_text }}</h1>
+    <h1 class="q_text_h"><i class="bi bi-patch-question"></i> {{ question.question_text }}</h1>
 
     <ul>
     {% for choice in question.choice_set.all %}

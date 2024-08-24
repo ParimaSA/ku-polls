@@ -66,7 +66,7 @@
   "fields": {
     "question": 2,
     "choice_text": "Laksa",
-    "votes": 0
+    "votes": 1
   }
 },
 {
@@ -93,7 +93,7 @@
   "fields": {
     "question": 3,
     "choice_text": "Toy Story",
-    "votes": 0
+    "votes": 1
   }
 },
 {
@@ -102,7 +102,7 @@
   "fields": {
     "question": 3,
     "choice_text": "The Incredibles",
-    "votes": 0
+    "votes": 1
   }
 },
 {
@@ -111,7 +111,7 @@
   "fields": {
     "question": 3,
     "choice_text": "Ratatouille",
-    "votes": 0
+    "votes": 1
   }
 },
 {
@@ -165,7 +165,7 @@
   "fields": {
     "question": 3,
     "choice_text": "Tangled",
-    "votes": 0
+    "votes": 2
   }
 }
 ]

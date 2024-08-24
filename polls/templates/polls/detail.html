@@ -11,7 +11,7 @@
     <form action = "{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
         <legend>
-            <h1><i class="bi bi-patch-question"></i> {{ question.question_text }} </h1>
+            <h1 class="q_text_h"><i class="bi bi-patch-question"></i> {{ question.question_text }} </h1>
         </legend>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         {% for choice in question.choice_set.all %}
