@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <title>{{ question.question_text }}</title>
+</head>
+<body>
+    <h1 class="q_text_h"><i class="bi bi-patch-question"></i> {{ question.question_text }}</h1>
+
+    <ul>
+    {% for choice in question.choice_set.all %}
+      <li class="r_text">{{ choice.choice_text }} -- {{ choice.votes }}</li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:index' %}" class="vote_btn">Vote Again?</a>
+
+</body>
+</html>

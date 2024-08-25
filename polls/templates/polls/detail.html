@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <title>{{ question.question_text }}</title>
+</head>
+<body>
+    <form action = "{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+        <legend>
+            <h1 class="q_text_h"><i class="bi bi-patch-question"></i> {{ question.question_text }} </h1>
+        </legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% for choice in question.choice_set.all %}
+            <input type="radio" name="choice" id="choice{{ forloop.counter}}"
+                   value="{{ choice.id }}" class="choice">
+            <label for = "choice{{ forloop.counter}}" class="c_text">{{ choice.choice_text}}</label><br>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote" class="vote_btn">
+    </form>
+</body>
+</html>
