@@ -9,7 +9,8 @@ class Question(models.Model):
     Question will be published after pub_date.
     """
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField("date published", default=timezone.now)
+    end_date = models.DateTimeField(null=True, default=None)
 
     def __str__(self):
         """Return text of Question"""

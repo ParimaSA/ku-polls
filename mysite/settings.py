@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': config('DATABASE_URL',
-                      default='sqlite:///'+BASE_DIR+'db.sqlite3',
+                      default=f'sqlite:///{BASE_DIR.joinpath("db.sqlite3")}',
                       cast=db_url),
 }
 
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Bangkok'
+TIME_ZONE = config('TIMEZONE', default='UTC', cast=str)
 
 USE_I18N = True
 
