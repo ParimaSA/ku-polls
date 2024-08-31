@@ -1,4 +1,6 @@
 # KU Polls
+![Unit Tests](../../actions/workflows/python-app.yml/badge.svg)
+<br>
 An application to conduct online polls and surveys based on the [Django Tutorial project](https://www.w3schools.com/django/), 
 with additional features.<br>
 This app was created as part of the [Individual Software Process](
