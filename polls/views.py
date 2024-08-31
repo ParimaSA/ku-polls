@@ -25,7 +25,7 @@ def detail(request, question_id):
         if not question.is_published():
             messages.error(request, "Question not found")
             return HttpResponseRedirect(reverse('polls:index'))
-        if not question.is_published():
+        if not question.can_vote():
             messages.error(request, "Section closed for voting")
             return HttpResponseRedirect(reverse('polls:index'))
         return render(request, 'polls/detail.html', context={'question': question})
@@ -47,9 +47,12 @@ def vote(request, question_id):
     Otherwise, add votes for that choice and send back results page.
     """
     question = get_object_or_404(Question, pk=question_id)
+    if not question.can_vote():
+        messages.error(request, "Section closed for voting")
+        return HttpResponseRedirect(reverse('polls:index'))
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
-    except (KeyError, Choice.DoesNotExist):
+    except(KeyError, Choice.DoesNotExist):
         messages.error(request, "You did not select a choice.")
         return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
     else:

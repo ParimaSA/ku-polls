@@ -35,7 +35,6 @@ li {
 .index_ctn {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     width: 90%;
     height: 10%;
     padding: 20px;
@@ -44,7 +43,7 @@ li {
     border-radius: 5px;
     background-color: white;
     opacity: 0.6;
-    gap: 20px;
+    gap: 10px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -57,6 +56,13 @@ li {
     width: 90%;
     margin: 10px 20px;
     padding-left: 10px;
+}
+
+.close {
+    font-size: 20px;
+    color: red;
+    margin-left: auto;
+    margin-top: 5px;
 }
 
 .btn_g {
@@ -77,11 +83,33 @@ li {
     background-color: white;
 }
 
-.index_btn:hover {
+.after_end{
+    color: black;
+    align-self: flex-end;
+    font-size: 25px;
+    text-decoration: none;
+    text-align: center;
+    width: 60%;
+    margin: 2px 2px;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.index_btn:hover{
     color: white;
     background: red;
     opacity: 0.6;
 }
+
+.after_end:hover{
+    color: white;
+    background: red;
+    opacity: 0.6;
+}
+
+/* detail.html */
 
 .vote_btn {
     font-size: 30px;

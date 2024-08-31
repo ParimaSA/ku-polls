@@ -19,6 +19,7 @@
     {% if latest_question_list %}
         <ul>
         {% for question in latest_question_list %}
+            {% if question.can_vote %}
             <li class="index_ctn">
                 <div class ="q_text"><i class="bi bi-patch-question"></i> {{ question.question_text }}</div>
                 <div class="btn_g">
@@ -30,6 +31,18 @@
                     </a>
                 </div>
             </li>
+            {% else %}
+            <li class="index_ctn">
+                <div class ="q_text">
+                    <i class="bi bi-patch-question"></i> {{ question.question_text }}<div class="close">(closed)</div>
+                </div>
+                <div class="btn_g">
+                    <a href = "{% url 'polls:results' question.id %}" class="after_end">
+                        result
+                    </a>
+                </div>
+            </li>
+            {% endif %}
         {% endfor %}
         </ul>
     {% else %}
