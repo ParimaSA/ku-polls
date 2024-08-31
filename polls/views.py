@@ -1,4 +1,3 @@
-from datetime import timezone
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages

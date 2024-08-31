@@ -21,7 +21,8 @@ class Question(models.Model):
         Check whether the question was published within 1 day.
         If the question was published longer or has not published yet, return False.
         """
-        return (timezone.now() - datetime.timedelta(days=1)) <= self.pub_date <= timezone.now()
+        one_day_ago = (timezone.now() - datetime.timedelta(days=1))
+        return one_day_ago <= self.pub_date <= timezone.now()
 
     def is_published(self):
         """
@@ -33,16 +34,19 @@ class Question(models.Model):
     def can_vote(self):
         """
         Check whether the question is between the pub_date and end_date.
-        If the question was not published yet or the current date-time past the end_date, return False.
-        (the end_date is null => the question is opened forever)
+        If the question was not published yet or
+        the current date-time past the end_date, return False.
+            (the end_date is null => the question is opened forever)
         """
-        return  self.pub_date <= timezone.now() and (self.end_date is None or self.end_date >= timezone.now())
+        return self.pub_date <= timezone.now() and (self.end_date is None or
+                                                    self.end_date >= timezone.now())
 
 
 class Choice(models.Model):
     """
     Choice model contain three columns, question, choice_text and votes.
-    Choice links with question within Question. If that question was deleted, this choice will be deleted too.
+    Choice links with question within Question.
+    If that question was deleted, this choice will be deleted too.
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
