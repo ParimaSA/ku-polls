@@ -1,8 +1,6 @@
 import datetime
 from django.test import TestCase
 from django.utils import timezone
-from fontTools.misc.plistlib import end_date
-
 from .models import Question
 from django.urls import reverse
 

@@ -9,14 +9,22 @@
 </head>
 <body>
     <h1 class="q_text_h"><i class="bi bi-patch-question"></i> {{ question.question_text }}</h1>
-
-    <ul>
-    {% for choice in question.choice_set.all %}
-      <li class="r_text">{{ choice.choice_text }} -- {{ choice.votes }}</li>
-    {% endfor %}
-    </ul>
-
-    <a href="{% url 'polls:index' %}" class="vote_btn">Vote Again?</a>
+    <div class="vote_table">
+        <table>
+        <tr>
+            <th>Choice</th>
+            <th>Votes</th>
+        </tr>
+        {% for choice in question.choice_set.all %}
+            <tr>
+                <td>{{choice.choice_text}}</td>
+                <td>{{choice.votes}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <br>
+    <a href="{% url 'polls:index' %}" class="result_page_btn"><i class="bi bi-skip-backward-fill"> Index</i></a>
 
 </body>
 </html>

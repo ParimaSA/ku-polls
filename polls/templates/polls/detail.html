@@ -20,7 +20,13 @@
             <label for = "choice{{ forloop.counter}}" class="c_text">{{ choice.choice_text}}</label><br>
         {% endfor %}
     </fieldset>
-    <input type="submit" value="Vote" class="vote_btn">
+    <div class="btn_g_detail">
+        <a class="btn left_btn"href = "{% url 'polls:index' %}" ><i class="bi bi-skip-backward-fill"></i> Index</a>
+        <input class="btn center_btn" type="submit" value="Vote">
+        <a class="btn right_btn" href = "{% url 'polls:results' question.id %}">
+            Result <i class="bi bi-skip-forward-fill"></i>
+        </a>
+    </div>
     </form>
 </body>
 </html>
