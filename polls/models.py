@@ -23,6 +23,21 @@ class Question(models.Model):
         """
         return (timezone.now() - datetime.timedelta(days=1)) <= self.pub_date <= timezone.now()
 
+    def is_published(self):
+        """
+        Check whether the current date-time is on or after question’s publication date.
+        If the question was not published yet, return False.
+        """
+        return self.pub_date <= timezone.now()
+
+    def can_vote(self):
+        """
+        Check whether the question is between the pub_date and end_date.
+        If the question was not published yet or the current date-time past the end_date, return False.
+        (the end_date is null => the question is opened forever)
+        """
+        return  self.pub_date <= timezone.now() and (self.end_date is None or self.end_date >= timezone.now())
+
 
 class Choice(models.Model):
     """

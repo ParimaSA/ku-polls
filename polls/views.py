@@ -15,13 +15,13 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
 
 
 def detail(request, question_id):
     """Detail page, contain choices for question."""
     question = get_object_or_404(Question, pk=question_id)
-    if question.pub_date > timezone.now():
+    if not question.is_published():
         raise Http404('Question not found.')
     return render(request, 'polls/detail.html', context={'question': question})
 
