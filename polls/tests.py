@@ -98,8 +98,15 @@ class QuestionModelTests(TestCase):
         future = timezone.now() + datetime.timedelta(days=1)
         opened_question = Question(end_date=future)
         self.assertTrue(opened_question.can_vote())
-        opened_question_with_null_end_date = Question()
-        self.assertTrue(opened_question_with_null_end_date.can_vote())
+
+    def test_can_vote_with_opened_question_with_null_end_date(self):
+        """
+        can_vote method returns True
+        for questions whose pub_date is in the past and end_date is None
+        """
+        past = timezone.now() - datetime.timedelta(days=1234)
+        opened_question = Question(pub_date=past, end_date=None)
+        self.assertTrue(opened_question.can_vote())
 
 
 class QuestionIndexViewTests(TestCase):
