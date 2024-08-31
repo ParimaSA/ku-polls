@@ -5,17 +5,44 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <h1>KU Polls</h1>
+    <script class="message">
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                Swal.fire({text: "{{ message }}"});
+            {% endfor %}
+        });
+    </script>
     {% if latest_question_list %}
         <ul>
         {% for question in latest_question_list %}
-            <li>
-                <a href = "{% url 'polls:detail' question.id %}" class="q_btn">
-                    <i class="bi bi-patch-question"></i> {{ question.question_text }}
-                </a>
+            {% if question.can_vote %}
+            <li class="index_ctn">
+                <div class ="q_text"><i class="bi bi-patch-question"></i> {{ question.question_text }}</div>
+                <div class="btn_g">
+                    <a href = "{% url 'polls:detail' question.id %}" class="index_btn">
+                        vote
+                    </a>
+                    <a href = "{% url 'polls:results' question.id %}" class="index_btn">
+                        result
+                    </a>
+                </div>
             </li>
+            {% else %}
+            <li class="index_ctn">
+                <div class ="q_text">
+                    <i class="bi bi-patch-question"></i> {{ question.question_text }}<div class="close">(closed)</div>
+                </div>
+                <div class="btn_g">
+                    <a href = "{% url 'polls:results' question.id %}" class="after_end">
+                        result
+                    </a>
+                </div>
+            </li>
+            {% endif %}
         {% endfor %}
         </ul>
     {% else %}

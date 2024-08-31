@@ -5,6 +5,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'polls/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>{{ question.question_text }}</title>
 </head>
 <body>
@@ -13,14 +14,26 @@
         <legend>
             <h1 class="q_text_h"><i class="bi bi-patch-question"></i> {{ question.question_text }} </h1>
         </legend>
-        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <script class="message">
+            document.addEventListener('DOMContentLoaded', function() {
+                {% for message in messages %}
+                    Swal.fire({text: "{{ message }}"});
+                {% endfor %}
+            });
+        </script>
         {% for choice in question.choice_set.all %}
             <input type="radio" name="choice" id="choice{{ forloop.counter}}"
                    value="{{ choice.id }}" class="choice">
             <label for = "choice{{ forloop.counter}}" class="c_text">{{ choice.choice_text}}</label><br>
         {% endfor %}
     </fieldset>
-    <input type="submit" value="Vote" class="vote_btn">
+    <div class="btn_g_detail">
+        <a class="btn left_btn"href = "{% url 'polls:index' %}" ><i class="bi bi-skip-backward-fill"></i> Index</a>
+        <input class="btn center_btn" type="submit" value="Vote">
+        <a class="btn right_btn" href = "{% url 'polls:results' question.id %}">
+            Result <i class="bi bi-skip-forward-fill"></i>
+        </a>
+    </div>
     </form>
 </body>
 </html>

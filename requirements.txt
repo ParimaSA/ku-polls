@@ -1,2 +1,4 @@
 # list of Python packages this project requires
 django >= 5.1
+python-decouple >= 3.8
+dj-database-url
