@@ -6,33 +6,35 @@ from django.db.models import F
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
-from polls.models import Choice, Question
+from polls.models import Choice, Question, Vote
 
 
 class IndexView(generic.ListView):
-    """Home page, contain list of questions that have been published within 1 day."""
+    """Home page, contain list of questions that have been published."""
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
     def get_queryset(self):
-        """Return the last five published questions."""
+        """Return the list of published questions."""
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")
 
 
 def detail(request, question_id):
-    """Detail page, contain choices for question."""
+    """Display the choice for a poll and allow voting."""
     try:
         question = Question.objects.get(pk=question_id)
+        # Check if the question is published or not
         if not question.is_published():
             messages.error(request, "Question not found")
             return HttpResponseRedirect(reverse('polls:index'))
+        # Check if the question is still in vote session
         if not question.can_vote():
             messages.error(request, "Section closed for voting")
             return HttpResponseRedirect(reverse('polls:index'))
-        return render(request, 'polls/detail.html', context={'question': question})
     except (KeyError, Question.DoesNotExist):
         messages.error(request, "Question not found")
         return HttpResponseRedirect(reverse('polls:index'))
+    return render(request, 'polls/detail.html', context={'question': question})
 
 
 class ResultsView(generic.DetailView):
@@ -57,7 +59,19 @@ def vote(request, question_id):
     except(KeyError, Choice.DoesNotExist):
         messages.error(request, "You did not select a choice.")
         return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
-    else:
-        selected_choice.votes = F("votes") + 1
-        selected_choice.save()
-        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+    # Reference to the current user
+    current_user = request.user
+    # Get the user's vote
+    try:
+        vote = Vote.objects.get(user=current_user, choice__question = question)
+        vote.choice = selected_choice
+        vote.save()
+        messages.success(request, (f'Your vote was changed to' + selected_choice.choice_text))
+    except (KeyError, Vote.DoesNotExist):
+        # does not have a vote yet
+        Vote.objects.create(user=current_user, choice=selected_choice)
+        messages.success(request, ('Your voted for' + selected_choice.choice_text))
+
+    selected_choice.save()
+    return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
