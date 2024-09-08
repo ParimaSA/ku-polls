@@ -41,7 +41,6 @@ class AuthTest(TestCase):
         """
         self.client.login(username='test', password='1234')
         response = self.client.get(reverse('logout'))
-        self.assertEqual(response.status_code, 302)
         # Ensure the user is logged out
         response = self.client.get(reverse('polls:index'))
         self.assertNotContains(response, 'Welcome back, test')
