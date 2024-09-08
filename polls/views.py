@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User, AnonymousUser
 from django.db.models import F
 from django.urls import reverse
 from django.views import generic
@@ -34,7 +35,18 @@ def detail(request, question_id):
     except (KeyError, Question.DoesNotExist):
         messages.error(request, "Question not found")
         return HttpResponseRedirect(reverse('polls:index'))
-    return render(request, 'polls/detail.html', context={'question': question})
+
+    # Get user's vote
+    current_user = request.user
+    choice = None
+    if current_user.is_authenticated:
+        try:
+            vote = Vote.objects.get(user=current_user, choice__question=question)
+            choice = vote.choice
+        except (KeyError, Vote.DoesNotExist):
+            pass
+    context = {'question': question, "selected_choice": choice}
+    return render(request, 'polls/detail.html', context=context)
 
 
 class ResultsView(generic.DetailView):
@@ -67,11 +79,11 @@ def vote(request, question_id):
         vote = Vote.objects.get(user=current_user, choice__question = question)
         vote.choice = selected_choice
         vote.save()
-        messages.success(request, (f'Your vote was changed to' + selected_choice.choice_text))
+        messages.success(request, f'Your vote was changed to {selected_choice.choice_text}')
     except (KeyError, Vote.DoesNotExist):
         # does not have a vote yet
         Vote.objects.create(user=current_user, choice=selected_choice)
-        messages.success(request, ('Your voted for' + selected_choice.choice_text))
+        messages.success(request, f'You voted for {selected_choice.choice_text}')
 
     selected_choice.save()
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))

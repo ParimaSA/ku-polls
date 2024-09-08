@@ -23,7 +23,9 @@
         </script>
         {% for choice in question.choice_set.all %}
             <input type="radio" name="choice" id="choice{{ forloop.counter}}"
-                   value="{{ choice.id }}" class="choice">
+                   value="{{ choice.id }}" class="choice"
+                   {% if choice == selected_choice %} checked {% endif %}
+            >
             <label for = "choice{{ forloop.counter}}" class="c_text">{{ choice.choice_text}}</label><br>
         {% endfor %}
     </fieldset>

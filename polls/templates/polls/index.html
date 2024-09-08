@@ -13,13 +13,13 @@
             <h1>Welcome back, {{ user.username }}</h1>
             <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button class="log_btn" type="submit">Log Out</button>
+            <button class="log_btn" type="submit">Log Out <i class="bi bi-box-arrow-right"></i></button>
             </form>
          </div>
     {% else %}
         <div class="user">
             <h1>KU Polls</h1>
-            <a class="log_btn" href="{% url 'login' %}">Login</a>
+            <a class="log_btn" href="{% url 'login' %}">Login <i class="bi bi-box-arrow-in-left"></i></a>
         </div>
     {% endif %}
 
