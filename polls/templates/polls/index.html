@@ -8,15 +8,19 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <h1>KU Polls</h1>
     {% if user.is_authenticated %}
-        Welcome back, {{ user.username }}
-        <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Log Out</button>
-        </form>
+        <div class="user">
+            <h1>Welcome back, {{ user.username }}</h1>
+            <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="log_btn" type="submit">Log Out</button>
+            </form>
+         </div>
     {% else %}
-        Please <a href="{% url 'login' %}">Login</a>
+        <div class="user">
+            <h1>KU Polls</h1>
+            <a class="log_btn" href="{% url 'login' %}">Login</a>
+        </div>
     {% endif %}
 
     <script class="message">
@@ -30,8 +34,10 @@
         <ul>
         {% for question in question_list %}
             {% if question.can_vote %}
-            <li class="index_ctn">
-                <div class ="q_text"><i class="bi bi-patch-question"></i> {{ question.question_text }}</div>
+            <li class="index_ctn_open">
+                <div class ="q_text">
+                    <i class="bi bi-patch-question"></i> {{ question.question_text }}
+                </div>
                 <div class="btn_g">
                     <a href = "{% url 'polls:detail' question.id %}" class="index_btn">
                         vote
@@ -42,9 +48,9 @@
                 </div>
             </li>
             {% else %}
-            <li class="index_ctn">
+            <li class="index_ctn_close">
                 <div class ="q_text">
-                    <i class="bi bi-patch-question"></i> {{ question.question_text }}<div class="close">(closed)</div>
+                    <i class="bi bi-patch-question"></i> {{ question.question_text }}
                 </div>
                 <div class="btn_g">
                     <a href = "{% url 'polls:results' question.id %}" class="after_end">
