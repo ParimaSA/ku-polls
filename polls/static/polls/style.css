@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
     color: white;
 }
 
@@ -45,11 +45,8 @@ li {
 }
 
 .q_text_h {
-    width: 85%;
-    text-align: left;
-    color: black;
-    font-size: 40px;
-    font-style: normal;
+    width: 80%;
+    text-align: center;
     padding: 20px 0px;
     margin-left: 100px;
     border-bottom-style: solid;
@@ -239,9 +236,6 @@ li {
     opacity: 0.6;
 }
 
-
-
-
 /* Style for results.html */
 .vote_table {
     font-size: 25px;
@@ -301,4 +295,10 @@ li {
     color: white;
     background-color: red;
     opacity: 0.6;
+}
+
+.line {
+    width: 90%;
+    border-bottom-style: solid;
+    border-color: grey;
 }
