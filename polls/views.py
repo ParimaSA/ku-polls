@@ -2,12 +2,41 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, AnonymousUser
-from django.db.models import F
+from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
+from django.dispatch import receiver
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from polls.models import Choice, Question, Vote
+import logging
+
+
+logger = logging.getLogger("polls")
+
+def get_client_ip(request):
+    """Get the visitor’s IP address using request headers."""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+@receiver(user_logged_in)
+def log_user_login(sender, request, user, **kwargs):
+    ip_addr = get_client_ip(request)
+    logger.info(f"{user.username} logged in from {ip_addr}")
+
+@receiver(user_logged_out)
+def log_user_logout(sender, request, user, **kwargs):
+    ip_addr = get_client_ip(request)
+    logger.info(f'{user.username} logged out from {ip_addr}')
+
+@receiver(user_login_failed)
+def log_login_failed(sender, credentials, request, **kwargs):
+    ip_addr = get_client_ip(request)
+    username = credentials.get('username', 'Unknown')
+    logger.warning(f"Failed login attempt for {username} from {ip_addr}")
 
 
 class IndexView(generic.ListView):
@@ -27,13 +56,16 @@ def detail(request, question_id):
         # Check if the question is published or not
         if not question.is_published():
             messages.error(request, "Question not found")
+            logger.error(f"Non-existent question {question_id}")
             return HttpResponseRedirect(reverse('polls:index'))
         # Check if the question is still in vote session
         if not question.can_vote():
             messages.error(request, "Section closed for voting")
+            logger.error(f"Someone try to vote closed question {question_id}")
             return HttpResponseRedirect(reverse('polls:index'))
     except (KeyError, Question.DoesNotExist):
         messages.error(request, "Question not found")
+        logger.error(f"Non-existent question {question_id} %s")
         return HttpResponseRedirect(reverse('polls:index'))
 
     # Get user's vote
@@ -65,11 +97,13 @@ def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if not question.can_vote():
         messages.error(request, "Section closed for voting")
+        logger.error(f"User try to vote for closed question {question_id}")
         return HttpResponseRedirect(reverse('polls:index'))
     try:
         selected_choice = question.choice_set.get(pk=request.POST["choice"])
     except(KeyError, Choice.DoesNotExist):
         messages.error(request, "You did not select a choice.")
+        logger.error("User did not select the choice to vote.")
         return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 
     # Reference to the current user
@@ -86,4 +120,6 @@ def vote(request, question_id):
         messages.success(request, f'You voted for {selected_choice.choice_text}')
 
     selected_choice.save()
+    logger.info(
+        f'User {request.user.username} submitted a vote for choice {selected_choice.id} on question {question.id}')
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
