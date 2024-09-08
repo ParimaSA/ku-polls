@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>KU Polls</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-    <h1>KU Polls</h1>
+{% extends 'polls/base.html' %}
+
+{% block title %}KU Polls{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
     <script class="message">
         document.addEventListener('DOMContentLoaded', function() {
             {% for message in messages %}
@@ -16,12 +13,14 @@
             {% endfor %}
         });
     </script>
-    {% if latest_question_list %}
+    {% if question_list %}
         <ul>
-        {% for question in latest_question_list %}
+        {% for question in question_list %}
             {% if question.can_vote %}
-            <li class="index_ctn">
-                <div class ="q_text"><i class="bi bi-patch-question"></i> {{ question.question_text }}</div>
+            <li class="index_ctn_open">
+                <div class ="q_text">
+                    <i class="bi bi-patch-question"></i> {{ question.question_text }}
+                </div>
                 <div class="btn_g">
                     <a href = "{% url 'polls:detail' question.id %}" class="index_btn">
                         vote
@@ -32,9 +31,9 @@
                 </div>
             </li>
             {% else %}
-            <li class="index_ctn">
+            <li class="index_ctn_close">
                 <div class ="q_text">
-                    <i class="bi bi-patch-question"></i> {{ question.question_text }}<div class="close">(closed)</div>
+                    <i class="bi bi-patch-question"></i> {{ question.question_text }}
                 </div>
                 <div class="btn_g">
                     <a href = "{% url 'polls:results' question.id %}" class="after_end">
@@ -48,5 +47,4 @@
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

@@ -2,11 +2,35 @@ body {
     background: white url("images/background.png") no-repeat;
 }
 
-h1 {
+.user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: white;
+}
+
+.user h1 {
     color: black;
     margin-left: 40px;
     font-size: 60px;
     font-style: normal;
+}
+
+.log_btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    margin-right: 40px;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.log_btn:hover {
+    color: white;
+    background: #4ba860;
 }
 
 p {
@@ -21,18 +45,15 @@ li {
 }
 
 .q_text_h {
-    width: 85%;
-    text-align: left;
-    color: black;
-    font-size: 40px;
-    font-style: normal;
+    width: 80%;
+    text-align: center;
     padding: 20px 0px;
     margin-left: 100px;
     border-bottom-style: solid;
     border-color: grey;
 }
 
-.index_ctn {
+.index_ctn_close {
     display: flex;
     align-items: center;
     width: 90%;
@@ -46,6 +67,24 @@ li {
     gap: 10px;
     margin-left: auto;
     margin-right: auto;
+    border-left: 8px solid red;
+}
+
+.index_ctn_open {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    height: 10%;
+    padding: 20px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: white;
+    opacity: 0.6;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 8px solid #4ba860;
 }
 
 .q_text {
@@ -56,13 +95,6 @@ li {
     width: 90%;
     margin: 10px 20px;
     padding-left: 10px;
-}
-
-.close {
-    font-size: 20px;
-    color: red;
-    margin-left: auto;
-    margin-top: 5px;
 }
 
 .btn_g {
@@ -204,9 +236,6 @@ li {
     opacity: 0.6;
 }
 
-
-
-
 /* Style for results.html */
 .vote_table {
     font-size: 25px;
@@ -266,4 +295,10 @@ li {
     color: white;
     background-color: red;
     opacity: 0.6;
+}
+
+.line {
+    width: 90%;
+    border-bottom-style: solid;
+    border-color: grey;
 }
