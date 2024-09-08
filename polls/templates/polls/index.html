@@ -26,9 +26,9 @@
             {% endfor %}
         });
     </script>
-    {% if latest_question_list %}
+    {% if question_list %}
         <ul>
-        {% for question in latest_question_list %}
+        {% for question in question_list %}
             {% if question.can_vote %}
             <li class="index_ctn">
                 <div class ="q_text"><i class="bi bi-patch-question"></i> {{ question.question_text }}</div>

@@ -12,7 +12,7 @@ from polls.models import Choice, Question, Vote
 class IndexView(generic.ListView):
     """Home page, contain list of questions that have been published."""
     template_name = "polls/index.html"
-    context_object_name = "latest_question_list"
+    context_object_name = "question_list"
 
     def get_queryset(self):
         """Return the list of published questions."""
