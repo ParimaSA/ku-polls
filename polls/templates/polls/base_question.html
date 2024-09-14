@@ -7,15 +7,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body>
+<body class="question">
     <header>
-            <div class="user">
+        <div class="container">
+            <div class="question_header">
                 {% block page_header %}
-                    {% if user.is_authenticated %}
-                        <h1>Welcome back, {{ user.username }}</h1>
-                    {% else %}
-                        <h1>KU Polls</h1>
-                    {% endif %}
+                    <h1><i class="bi bi-patch-question"></i> {{ question.question_text }} </h1>
                 {% endblock %}
                 {% if user.is_authenticated %}
                     <form action="{% url 'logout' %}" method="post">
@@ -26,6 +23,7 @@
                     <a class="log_btn" href="{% url 'login' %}">Login <i class="bi bi-box-arrow-in-left"></i></a>
                 {% endif %}
             </div>
+        </div>
     </header>
 
     {% block content %}

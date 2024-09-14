@@ -1,10 +1,6 @@
-{% extends 'polls/base.html' %}
+{% extends 'polls/base_question.html' %}
 
 {% load static %}
-
-{% block page_header %}
-            <h1><i class="bi bi-patch-question"></i> {{ question.question_text }} </h1>
-{% endblock %}
 
 {% block content %}
     <form action = "{% url 'polls:vote' question.id %}" method="post">
