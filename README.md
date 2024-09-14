@@ -1,4 +1,4 @@
-# KU Polls
+# KU Polls 
 ![Unit Tests](../../actions/workflows/ku_polls.yml/badge.svg)
 <br>
 An application to conduct online polls and surveys based on the [Django Tutorial project](https://www.w3schools.com/django/), 
@@ -13,10 +13,37 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 
 
 ## Installation
-(how to install the application)<br><br>
+See the installation [here](Installation.md)<br><br>
 
 ## Running the Application
-(how to run the application)<br><br>
+1. Set up the Environment <br>
+```
+python -m venv venv
+source venv/bin/activate # On Windows, use `venv\Scripts\activate`
+```
+2. Run migrations<br>
+```
+python manage.py migrate
+```
+3. Load data
+```
+python manage.py loaddata data/polls-v4.json  # load question and choice
+python manage.py loaddata data/votes.json  # load user's vote
+python manage.py loaddata data/users.json  # load user's username and password
+```
+4. Run the django development server <br>
+```
+python manage.py runserver
+```
+<br>
+
+## Demo User Account
+| Username | Password  | 
+|:--------:|:---------:|
+|  Demo1   | Hackme11  |  
+|  Demo2   | Hackme22  |  
+|  Demo3   | Hackme33  |  
+<br>
 
 ## Documents
 All project documents are in the [Project Wiki](../../wiki/Home).
@@ -28,3 +55,5 @@ All project documents are in the [Project Wiki](../../wiki/Home).
 ## Iteration Plan
 - [Iteration 1 Plan](../../wiki/Iteration%201%20Plan)
 - [Iteration 2 Plan](../../wiki/Iteration%202%20Plan)
+- [Iteration 3 Plan](../../wiki/Iteration%203%20Plan)
+- [Iteration 4 Plan](../../wiki/Iteration%204%20Plan)
