@@ -28,4 +28,11 @@
         </a>
     </div>
     </form>
+
+     {% if user.is_authenticated and selected_choice is not None %}
+        <form action="{% url 'polls:delete_vote' question.id %}" method="post">
+            {% csrf_token %}
+            <input class="delete_btn " type="submit" value="Delete Vote">
+        </form>
+    {% endif %}
 {% endblock %}
