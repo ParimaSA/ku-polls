@@ -13,7 +13,7 @@ cd ku-polls
 3. Create and activate a virtual environment
 ```
 python -m venv env
-. env/bin/activate  # use .\env\Scripts\activate if you are on MS Windows
+.env/bin/activate  # use .\env\Scripts\activate if you are on MS Windows
 ```
 
 4. Install the requirement packages using in this App
@@ -41,7 +41,5 @@ python manage.py test
 ```
 8. Install Data from Data Fixtures
 ```
-python manage.py loaddata data/polls-v4.json  # load question and choice
-python manage.py loaddata data/users.json  # load user information
-python manage.py loaddata data/votes-v4.json  # load user's vote
+python manage.py loaddata data/polls-v4.json data/votes-v4.json data/users.json
 ```

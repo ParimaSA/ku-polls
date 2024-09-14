@@ -1,7 +1,7 @@
 # KU Polls 
 ![Unit Tests](../../actions/workflows/ku_polls.yml/badge.svg)
 <br>
-An application to conduct online polls and surveys based on the [Django Tutorial project](https://www.w3schools.com/django/), 
+An application to conduct online polls and surveys based on the [Django Tutorial project](https://docs.djangoproject.com/en/5.1/intro/tutorial01/), 
 with additional features.<br>
 This app was created as part of the [Individual Software Process](
 https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
@@ -27,9 +27,7 @@ python manage.py migrate
 ```
 3. Load data
 ```
-python manage.py loaddata data/polls-v4.json  # load question and choice
-python manage.py loaddata data/users.json  # load user information
-python manage.py loaddata data/votes-v4.json  # load user's vote
+python manage.py loaddata data/polls-v4.json data/votes-v4.json data/users.json
 ```
 4. Run the django development server <br>
 ```
@@ -40,9 +38,9 @@ python manage.py runserver
 ## Demo User Account
 | Username | Password  | 
 |:--------:|:---------:|
-|  Demo1   | Hackme11  |  
-|  Demo2   | Hackme22  |  
-|  Demo3   | Hackme33  |  
+|  demo1   | Hackme11  |  
+|  demo2   | Hackme22  |  
+|  demo3   | Hackme33  |  
 <br>
 
 ## Documents

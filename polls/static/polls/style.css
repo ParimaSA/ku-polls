@@ -1,11 +1,9 @@
 body {
     background: white url("images/user.png") no-repeat;
-    font-family: 'Prisma Serif', serif;
 }
 
 .question {
     background: white url("images/question.png") no-repeat center top;
-    font-family: 'Prisma Serif', serif;
 }
 
 .container {

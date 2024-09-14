@@ -1,3 +1,4 @@
+"""Provide class to handle the request."""
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -13,6 +14,7 @@ import logging
 
 logger = logging.getLogger("polls")
 
+
 def get_client_ip(request):
     """Get the visitor’s IP address using request headers."""
     if request:
@@ -25,18 +27,24 @@ def get_client_ip(request):
         ip = 'Unknown'
     return ip
 
+
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
+    """Log the message when the user login."""
     ip_addr = get_client_ip(request)
     logger.info(f"{user.username} logged in from {ip_addr}")
 
+
 @receiver(user_logged_out)
 def log_user_logout(sender, request, user, **kwargs):
+    """Log the message when the user logout."""
     ip_addr = get_client_ip(request)
     logger.info(f'{user.username} logged out from {ip_addr}')
 
+
 @receiver(user_login_failed)
 def log_login_failed(sender, credentials, request, **kwargs):
+    """Log the message when the user login with incorrect username or password."""
     ip_addr = get_client_ip(request)
     username = credentials.get('username', 'Unknown')
     logger.warning(f"Failed login attempt for {username} from {ip_addr}")
@@ -44,6 +52,7 @@ def log_login_failed(sender, credentials, request, **kwargs):
 
 class IndexView(generic.ListView):
     """Home page, contain list of questions that have been published."""
+
     template_name = "polls/index.html"
     context_object_name = "question_list"
 
@@ -86,6 +95,7 @@ def detail(request, question_id):
 
 class ResultsView(generic.DetailView):
     """Result page, contain result vote from user for questionZz."""
+
     model = Question
     template_name = "polls/results.html"
 
@@ -94,6 +104,7 @@ class ResultsView(generic.DetailView):
 def vote(request, question_id):
     """
     Handle when the user click vote.
+
     If user does not select any choice, send back detail page with error message.
     Otherwise, add votes for that choice and send back results page.
     """
@@ -110,19 +121,20 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 
     # Reference to the current user
-    current_user = request.user
+    this_user = request.user
     # Get the user's vote
     try:
-        vote = Vote.objects.get(user=current_user, choice__question = question)
+        vote = Vote.objects.get(user=this_user, choice__question=question)
         vote.choice = selected_choice
         vote.save()
         messages.success(request, f'Your vote was changed to {selected_choice.choice_text}')
     except (KeyError, Vote.DoesNotExist):
         # does not have a vote yet
-        Vote.objects.create(user=current_user, choice=selected_choice)
+        Vote.objects.create(user=this_user, choice=selected_choice)
         messages.success(request, f'You voted for {selected_choice.choice_text}')
 
     selected_choice.save()
     logger.info(
-        f'User {request.user.username} submitted a vote for choice {selected_choice.id} on question {question.id}')
+        f'User {this_user.username} submitted a vote for choice '
+        f'{selected_choice.id} on question {question.id}')
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
