@@ -138,3 +138,24 @@ def vote(request, question_id):
         f'User {this_user.username} submitted a vote for choice '
         f'{selected_choice.id} on question {question.id}')
     return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+
+
+def delete_vote(request, question_id):
+    """Handle when user delete the choice."""
+    this_user = request.user
+    try:
+        question = get_object_or_404(Question, pk=question_id)
+    except:
+        messages.error(request, "Question not found")
+        logger.error(f"Non-existent question {question_id}")
+        return HttpResponseRedirect(reverse('polls:index'))
+    try:
+        vote = Vote.objects.get(user=this_user, choice__question=question)
+    except(KeyError, Vote.DoesNotExist):
+        messages.error(request, "You have not voted for this question")
+        logger.error(f"User try to delete non-existent vote for question {question_id}")
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    vote.delete()
+    messages.success(request, "Your vote was deleted.")
+    logger.info(f"User {request.user.username} deleted their vote for question {question_id}")
+    return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
