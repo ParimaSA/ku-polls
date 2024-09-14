@@ -29,8 +29,7 @@ class QuestionDetailViewTests(TestCase):
         url = reverse("polls:detail", args=(future_question.id,))
         response = self.client.get(url)
         self.assertEqual(response.status_code, 302)
-        follow_response = self.client.get(response.url)
-        self.assertContains(follow_response, 'Question not found')
+        self.assertContains(self.client.get(response.url), 'Question not found')
 
     def test_past_question(self):
         """
@@ -42,3 +41,14 @@ class QuestionDetailViewTests(TestCase):
         url = reverse("polls:detail", args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+    def test_user_has_not_voted(self):
+        """
+        Test detail view of a question with a user has not voted for this question.
+
+        Page should not display the delete vote button.
+        """
+        question = create_question(question_text='Question', days=0)
+        url = reverse("polls:detail", args=(question.id,))
+        response = self.client.get(url)
+        self.assertNotContains(response, "Delete Vote")

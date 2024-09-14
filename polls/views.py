@@ -141,6 +141,7 @@ def vote(request, question_id):
 
 
 def delete_vote(request, question_id):
+    """Handle when user delete the choice."""
     this_user = request.user
     try:
         question = get_object_or_404(Question, pk=question_id)
