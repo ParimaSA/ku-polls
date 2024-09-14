@@ -28,8 +28,8 @@ python manage.py migrate
 3. Load data
 ```
 python manage.py loaddata data/polls-v4.json  # load question and choice
-python manage.py loaddata data/votes.json  # load user's vote
-python manage.py loaddata data/users.json  # load user's username and password
+python manage.py loaddata data/votes-v4.json  # load user's vote
+python manage.py loaddata data/users.json  # load user information
 ```
 4. Run the django development server <br>
 ```
