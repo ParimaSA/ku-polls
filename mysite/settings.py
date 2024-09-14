@@ -113,33 +113,38 @@ LOGIN_REDIRECT_URL = 'polls:index'  # after login, show list of polls
 LOGOUT_REDIRECT_URL = 'polls:index'  # after logout, return to login page
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+            "verbose": {
+                "format": "{name} {levelname} {asctime} {message}",
+                "style": "{",
+            },
+            "simple": {
+                "format": "{levelname} {message}",
+                "style": "{",
+            },
+        },
     "handlers": {
         "file": {
             "class": "logging.FileHandler",
-            "filename": "general.log",
+            "filename": "ku_polls.log",
             "level": "DEBUG",
             "formatter": "verbose",
         },
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "WARNING",
+            "formatter": "simple"
+        }
     },
     "loggers": {
         "polls": {
             "level": "DEBUG",
-            "handlers": ["file"],
+            "handlers": ["file", "console"],
+            "propagate": True
         },
     },
-    "formatters": {
-        "verbose": {
-            "format": "{name} {levelname} {asctime} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-    },
-
 }
 
 # Internationalization
