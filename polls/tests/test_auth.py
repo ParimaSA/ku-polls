@@ -1,25 +1,21 @@
+"""Provide test for authentication."""
 import django.test
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate  # to "login" a user using code
 from polls.models import Question, Choice
 from mysite import settings
 
 
 def create_question(question_text):
-    """
-    Create a question with the given 'question_text' and published
-    the given number of 'days' offset to now
-    (negative for questions published in the past,
-     positive for questions that have not published)
-    """
+    """Create a question with the given 'question_text'."""
     return Question.objects.create(question_text=question_text)
 
 
 class UserAuthTest(django.test.TestCase):
+    """Test authentication system."""
 
     def setUp(self):
-        # superclass setUp creates a Client object and initializes test database
+        """Superclass setUp creates a Client object and initializes test database."""
         super().setUp()
         self.username = "test"
         self.password = "1234"
@@ -39,10 +35,9 @@ class UserAuthTest(django.test.TestCase):
 
     def test_logout(self):
         """A user can log out using the logout url.
-        As an authenticated user,
-        when I visit /accounts/logout/
-        then I am logged out
-        and then redirected to the login page.
+
+        As an authenticated user, when user visit /accounts/logout/
+        then user will be logged out and then redirected to the login page.
         """
         logout_url = reverse("logout")
         # Client.login returns true on success
@@ -77,10 +72,8 @@ class UserAuthTest(django.test.TestCase):
     def test_auth_required_to_vote(self):
         """Authentication is required to submit a vote.
 
-        As an unauthenticated user,
-        when I submit a vote for a question,
-        then I am redirected to the login page
-        or I receive a 403 response (FORBIDDEN)
+        As an unauthenticated user, when user submit a vote for a question,
+        then user will be redirected to the login page or receive a 403 response (FORBIDDEN)
         """
         vote_url = reverse('polls:vote', args=[self.question.id])
 
