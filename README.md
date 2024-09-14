@@ -9,7 +9,7 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 
 
 ## Application UI
-(the image of the UI in the application)<br><br>
+![application_ui](application_ui.png)<br><br>
 
 
 ## Installation
@@ -28,8 +28,8 @@ python manage.py migrate
 3. Load data
 ```
 python manage.py loaddata data/polls-v4.json  # load question and choice
-python manage.py loaddata data/votes-v4.json  # load user's vote
 python manage.py loaddata data/users.json  # load user information
+python manage.py loaddata data/votes-v4.json  # load user's vote
 ```
 4. Run the django development server <br>
 ```

@@ -42,6 +42,6 @@ python manage.py test
 8. Install Data from Data Fixtures
 ```
 python manage.py loaddata data/polls-v4.json  # load question and choice
-python manage.py loaddata data/votes-v4.json  # load user's vote
 python manage.py loaddata data/users.json  # load user information
+python manage.py loaddata data/votes-v4.json  # load user's vote
 ```
