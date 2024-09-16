@@ -1,5 +1,5 @@
-# KU Polls : Online Survey Question
-![Unit Tests](../../actions/workflows/ku_polls.yml/badge.svg)
+# KU Polls : Online Survey Questions
+[![Django CI](../../actions/workflows/ku_polls.yml/badge.svg)](../../actions/workflows/ku_polls.yml)
 <br>
 An application to conduct online polls and surveys based on the [Django Tutorial project](https://docs.djangoproject.com/en/5.1/intro/tutorial01/), 
 with additional features.<br>
@@ -15,7 +15,7 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 KU Polls recommend using python version 3.11 and other requirements are in [requirement](requirements.txt).<br><br>
 
 ## Installation
-Follow the instruction in  [Instruction](Installation.md).<br><br>
+Follow the instruction in [Installation](Installation.md).<br><br>
 
 ## Running the Application
 1. Run the django development server <br>
