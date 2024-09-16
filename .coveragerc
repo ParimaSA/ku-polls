@@ -13,9 +13,6 @@ omit =
     */__init__.py          # omit all __init__.py files, regardless of location
     manage.py              # manage.py file
 
-# explicitly include the main app
-include =
-    polls/*
 
 [report]
 # in the report, exclude some methods we don't need to test
