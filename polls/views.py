@@ -176,10 +176,15 @@ def signup(request):
             user = authenticate(username=username, password=raw_passwd)
             login(request, user)
             messages.success(request, 'Registration successful.')
+            ip_addr = get_client_ip(request)
+            logger.info(f"{user.username} registers from {ip_addr}")
             return redirect('polls:index')
         else:
             # what if form is not valid?
             # we should display a message in signup.html
+            username = form.cleaned_data.get('username')
+            ip_addr = get_client_ip(request)
+            logger.warning(f"Authentication failed for user {username} from {ip_addr}")
             messages.error(request, 'Authentication failed. Please try again.')
             return redirect('polls:signup')
     else:
