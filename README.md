@@ -27,7 +27,11 @@ The default port is 8000, but you can choose your own port from 1024 through 491
 python manage.py runserver 8000
 ```
 2. Open the server on your browser
-<br>
+<br><br>
+## Demo Admin Account
+| Username | Password | 
+|:--------:|:--------:|
+|  admin   | admin123 |
 
 ## Demo User Account
 | Username | Password  | 
