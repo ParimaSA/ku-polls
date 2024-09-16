@@ -1,4 +1,4 @@
-# KU Polls 
+# KU Polls : Online Survey Question
 ![Unit Tests](../../actions/workflows/ku_polls.yml/badge.svg)
 <br>
 An application to conduct online polls and surveys based on the [Django Tutorial project](https://docs.djangoproject.com/en/5.1/intro/tutorial01/), 
@@ -11,28 +11,22 @@ https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.
 ## Application UI
 ![application_ui](application_ui.png)<br><br>
 
+## Requirements
+KU Polls recommend using python version 3.11 and other requirements are in [requirement](requirements.txt).<br><br>
 
 ## Installation
-See the installation [here](Installation.md)<br><br>
+Follow the instruction in  [Instruction](Installation.md).<br><br>
 
 ## Running the Application
-1. Set up the Environment <br>
-```
-python -m venv venv
-source venv/bin/activate # On Windows, use `venv\Scripts\activate`
-```
-2. Run migrations<br>
-```
-python manage.py migrate
-```
-3. Load data
-```
-python manage.py loaddata data/polls-v4.json data/votes-v4.json data/users.json
-```
-4. Run the django development server <br>
+1. Run the django development server <br>
 ```
 python manage.py runserver
 ```
+The default port is 8000, but you can choose your own port from 1024 through 49151.
+```
+python manage.py runserver 8000
+```
+2. Open the server on your browser
 <br>
 
 ## Demo User Account
@@ -41,7 +35,7 @@ python manage.py runserver
 |  demo1   | Hackme11  |  
 |  demo2   | Hackme22  |  
 |  demo3   | Hackme33  |  
-<br>
+
 
 ## Documents
 All project documents are in the [Project Wiki](../../wiki/Home).
