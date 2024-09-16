@@ -1,9 +1,11 @@
 """Provide class to handle the request."""
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
+from django.contrib.auth.forms import UserCreationForm
 from django.dispatch import receiver
 from django.urls import reverse
 from django.views import generic
@@ -159,3 +161,28 @@ def delete_vote(request, question_id):
     messages.success(request, "Your vote was deleted.")
     logger.info(f"User {request.user.username} deleted their vote for question {question_id}")
     return HttpResponseRedirect(reverse('polls:results', args=(question_id,)))
+
+
+def signup(request):
+    """Register a new user."""
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # get named fields from the form data
+            username = form.cleaned_data.get('username')
+            # password input field is named 'password1'
+            raw_passwd = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_passwd)
+            login(request, user)
+            messages.success(request, 'Registration successful.')
+            return redirect('polls:index')
+        else:
+            # what if form is not valid?
+            # we should display a message in signup.html
+            messages.error(request, 'Authentication failed. Please try again.')
+            return redirect('polls:signup')
+    else:
+        # create a user form and display it the signup page
+        form = UserCreationForm()
+        return render(request, 'registration/signup.html', {'form': form})
