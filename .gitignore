@@ -17,6 +17,10 @@ __pycache__/
 .LSOverride
 Thumbs.db
 
+# Ignore coverage
+.coverage
+htmlcov/
+
 # Ignore log files
 *.log
 
