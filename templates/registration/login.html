@@ -4,6 +4,7 @@
     <title>Login</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'registration/login.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
     <div class="login-container">
@@ -19,6 +20,7 @@
             </form>
         </div>
     </div>
+    <a href="{% url 'polls:index' %}" class="index_page_btn"><i class="bi bi-skip-backward-fill"> Index</i></a>
 </body>
 </html>
 
