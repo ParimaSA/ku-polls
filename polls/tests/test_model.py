@@ -20,8 +20,7 @@ class QuestionModelTests(TestCase):
 
     def test_was_published_recently_with_future_question(self):
         """Test was_published_recently method for questions whose pub_date is in the future."""
-        future = timezone.now() + datetime.timedelta(days=30)
-        future_question = Question(pub_date=future)
+        future_question = create_question("future question", 30)
         self.assertFalse(future_question.was_published_recently())
 
     def test_was_published_recently_with_old_question(self):
@@ -50,14 +49,12 @@ class QuestionModelTests(TestCase):
 
     def test_is_published_with_old_question(self):
         """Test is_published method returns for questions whose pub_date is older than current."""
-        past = timezone.now() - datetime.timedelta(days=2)
-        old_question = Question(pub_date=past)
+        old_question = create_question('past question', -2)
         self.assertTrue(old_question.is_published())
 
     def test_can_vote_with_unpublished_question(self):
         """Test can_vote method for questions whose pub_date is in the future."""
-        future = timezone.now() + datetime.timedelta(days=1)
-        unpublished_question = Question(pub_date=future)
+        unpublished_question = create_question('next day question', 1)
         self.assertFalse(unpublished_question.can_vote())
 
     def test_can_vote_with_closed_question(self):
@@ -68,8 +65,7 @@ class QuestionModelTests(TestCase):
 
     def test_can_vote_with_opened_question(self):
         """Test can_vote method for questions whose current date between pub and end_date."""
-        future = timezone.now() + datetime.timedelta(days=1)
-        opened_question = Question(end_date=future)
+        opened_question = create_question('last day question', -1)
         self.assertTrue(opened_question.can_vote())
 
     def test_can_vote_with_opened_question_with_null_end_date(self):
