@@ -1,10 +1,9 @@
 # KU Polls : Online Survey Questions
 [![Django CI](../../actions/workflows/ku_polls.yml/badge.svg)](../../actions/workflows/ku_polls.yml)
-<br>
+
 An application to conduct online polls and surveys based on the [Django Tutorial project](https://docs.djangoproject.com/en/5.1/intro/tutorial01/), 
 with additional features.<br>
-This app was created as part of the [Individual Software Process](
-https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
+This app was created as part of the [Individual Software Process](https://cpske.github.io/ISP) course at [Kasetsart University](https://www.ku.ac.th).
 <br><br>
 
 
@@ -28,6 +27,7 @@ python manage.py runserver 8000
 ```
 2. Open the server on your browser
 <br><br>
+
 ## Demo Admin Account
 | Username | Password | 
 |:--------:|:--------:|
