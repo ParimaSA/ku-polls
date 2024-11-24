@@ -2,3 +2,4 @@
 django <= 5.1
 python-decouple <= 3.8
 dj-database-url
+psycopg[binary]

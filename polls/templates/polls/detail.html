@@ -21,7 +21,7 @@
         {% endfor %}
     </fieldset>
     <div class="btn_g_detail">
-        <a class="btn left_btn"href = "{% url 'polls:index' %}" ><i class="bi bi-skip-backward-fill"></i> Index</a>
+        <a class="btn left_btn" href = "{% url 'polls:index' %}" ><i class="bi bi-skip-backward-fill"></i> Index</a>
         <input class="btn center_btn" type="submit" value="Vote">
         <a class="btn right_btn" href = "{% url 'polls:results' question.id %}">
             Result <i class="bi bi-skip-forward-fill"></i>
@@ -34,5 +34,5 @@
             {% csrf_token %}
             <input class="delete_btn " type="submit" value="Delete Vote">
         </form>
-    {% endif %}
+     {% endif %}
 {% endblock %}

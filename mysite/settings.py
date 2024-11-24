@@ -80,9 +80,14 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': config('DATABASE_URL',
-                      default=f'sqlite:///{BASE_DIR.joinpath("db.sqlite3")}',
-                      cast=db_url),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DATABASE_NAME", default="polls"),
+        "USER": config("DATABASE_USER", default="polls"),
+        "PASSWORD": config("DATABASE_PASSWORD", default="password1234"),
+        "HOST": config("DATABASE_HOST", default="localhost"),
+        "PORT": config("DATABASE_PORT", default="5432")
+    }
 }
 
 
